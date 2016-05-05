@@ -10,18 +10,12 @@ class HeatSolver(object):
         self._shape = tuple(shape)
         self._spacing = tuple(spacing)
         self._alpha = float(alpha)
-        self._time = 0.
 
         self._time_step = min(self.spacing) ** 2 / (4. * self.alpha)
         self._time_step /= 2.
 
         self._temperature = np.zeros(self.shape)
-        self._temperature[self.shape[0] / 2, self.shape[1] / 2] = 1.
         self._delta_temperature = np.empty_like(self.temperature)
-
-    @property
-    def time(self):
-        return self._time
 
     @property
     def time_step(self):
@@ -47,9 +41,8 @@ class HeatSolver(object):
     def temperature(self, new_temp):
         self._temperature[:] = new_temp
 
-    def advance_in_time(self):
+    def solve(self):
         solve_2d(self.temperature, spacing=self.spacing,
                  alpha=self.alpha, time_step=self.time_step,
                  out=self._delta_temperature)
         self._temperature += self._delta_temperature
-        self._time += self._time_step
