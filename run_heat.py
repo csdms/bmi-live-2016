@@ -22,7 +22,7 @@ import sys
 
 import numpy as np
 
-from heat import HeatSolver
+from heat_solver import HeatSolver
 
 GRID_NY, GRID_NX = 11, 11
 GRID_DY, GRID_DX = 1., 1.
@@ -34,12 +34,15 @@ if __name__ == '__main__':
     heat_solver = HeatSolver(shape=(GRID_NY, GRID_NX),
                              spacing=(GRID_DY, GRID_DX), alpha=ALPHA)
 
+    heat_solver.temperature = 0.
+    heat_solver.temperature[GRID_NY / 2, GRID_NX / 2] = 1.
+
     for step in xrange(N_STEPS):
         if step % 1 == 0:
             print('Step = {step}'.format(step=step))
             np.savetxt(sys.stdout, heat_solver.temperature, fmt='%6.4F')
 
-        heat_solver.advance_in_time()
+        heat_solver.solve()
 
     print('Step = {step}'.format(step=step))
     np.savetxt(sys.stdout, heat_solver.temperature, fmt='%6.4F')
