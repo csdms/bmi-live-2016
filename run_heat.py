@@ -46,7 +46,7 @@ print('Using dt = {dt}'.format(dt=TIME_STEP))
 for step in xrange(N_STEPS):
     if step % 1 == 0:
         print('Step = {step}'.format(step=step))
-        np.savetxt(sys.stdout, temperature, fmt='%6.3G')
+        np.savetxt(sys.stdout, temperature, fmt='%6.4F')
 
     ndimage.convolve(temperature, STENCIL, output=delta_temperature)
     delta_temperature[(0, -1), :] = 0.
@@ -57,4 +57,4 @@ for step in xrange(N_STEPS):
     time += TIME_STEP
 
 print('Step = {step}'.format(step=step))
-np.savetxt(sys.stdout, temperature, fmt='%6.3G')
+np.savetxt(sys.stdout, temperature, fmt='%6.4F')
