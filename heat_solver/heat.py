@@ -6,7 +6,18 @@ from solve_2d import solve_2d
 
 class HeatSolver(object):
 
-    def __init__(self, shape=(10, 20), spacing=(1., 1.), alpha=1.):
+    def __init__(self, shape=(10, 10), spacing=(1., 1.), alpha=1.):
+        """Solve the heat equation on a rectilinear grid.
+
+        Parameters
+        ----------
+        shape : tuple of int, optional
+            Number of rows and columns for the solution grid.
+        spacing : tuple of float, optional
+            Spacing between grid rows and columns.
+        alpha : float
+            Thermal conductivity.
+        """
         self._shape = tuple(shape)
         self._spacing = tuple(spacing)
         self._alpha = float(alpha)
@@ -19,22 +30,27 @@ class HeatSolver(object):
 
     @property
     def time_step(self):
+        """The time step."""
         return self._time_step
 
     @property
     def shape(self):
+        """Number of grid rows and columns."""
         return self._shape
 
     @property
     def spacing(self):
+        """Spacing between grid rows and columns."""
         return self._spacing
 
     @property
     def alpha(self):
+        """Thermal conductivity."""
         return self._alpha
 
     @property
     def temperature(self):
+        """Temperature values on the grid."""
         return self._temperature
 
     @temperature.setter
@@ -42,6 +58,7 @@ class HeatSolver(object):
         self._temperature[:] = new_temp
 
     def solve(self):
+        """Solve for the new temperatures."""
         solve_2d(self.temperature, spacing=self.spacing,
                  alpha=self.alpha, time_step=self.time_step,
                  out=self._delta_temperature)
