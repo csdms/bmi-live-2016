@@ -5,6 +5,26 @@ from scipy import ndimage
 
 def solve_2d(temperature, spacing=(1., 1.), alpha=1., time_step=None,
              out=None):
+    """Solve for the change in temperature.
+
+    Parameters
+    ----------
+    temperature : ndarray of shape `(M, N)`
+        Initial temperature values.
+    spacing : tupe of float, optional
+        Spacing between grid rows and columns.
+    alpha : float, optional
+        Thermal conductivity.
+    temp_step : float, optional
+        Time step to take for the new temperatures.
+    out : ndarray of shape `(M, N)`, optional
+        If provided, a buffer for output temperature changes.
+
+    Returns
+    -------
+    delta_temperature : ndarray of shape `(M, N)`
+        Temperature changes after the time step.
+    """
     if time_step is None:
         time_step = min(spacing) ** 2 / (4. * alpha)
         time_step /= 2. # For safety
