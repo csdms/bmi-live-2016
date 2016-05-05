@@ -14,7 +14,8 @@ N_STEPS = 10
 
 time = 0.
 time_step = min(GRID_SPACING) ** 2 / (4. * ALPHA)
-temperature = random.random(GRID_SHAPE)
+temperature = np.zeros(GRID_SHAPE)
+temperature[:, 0] = 1.0
 next_temperature = np.empty_like(temperature)
 
 print('Using dt = {dt}'.format(dt=time_step))
@@ -22,7 +23,7 @@ print('Using dt = {dt}'.format(dt=time_step))
 for step in xrange(N_STEPS):
     if step % 5 == 0:
         print('Step = {step}'.format(step=step))
-        np.savetxt(sys.stdout, temperature, fmt='%6.3G')
+        np.savetxt(sys.stdout, temperature, fmt='%6.4F')
 
     dy2, dx2 = GRID_SPACING[0] ** 2, GRID_SPACING[1] ** 2
     stencil = np.array([[0., dy2, 0.],
@@ -39,4 +40,4 @@ for step in xrange(N_STEPS):
     time += time_step
 
 print('Step = {step}'.format(step=step))
-np.savetxt(sys.stdout, temperature, fmt='%6.3G')
+np.savetxt(sys.stdout, temperature, fmt='%6.4F')
