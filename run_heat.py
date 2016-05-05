@@ -20,41 +20,26 @@ from __future__ import print_function
 
 import sys
 
-from scipy import ndimage, random
 import numpy as np
+
+from heat import HeatSolver
 
 GRID_NY, GRID_NX = 11, 11
 GRID_DY, GRID_DX = 1., 1.
 ALPHA = 1.
 N_STEPS = 5
 
-TIME_STEP = min((GRID_DX, GRID_DY)) ** 2 / (4. * ALPHA)
-TIME_STEP /= 2. # For safety
-INV_DY2, INV_DX2 = 1. / GRID_DY ** 2, 1. / GRID_DY ** 2
-STENCIL = ALPHA * TIME_STEP * (
-    np.array([[     0.,                   INV_DY2,      0.],
-              [INV_DX2, -2. * (INV_DX2 + INV_DY2), INV_DX2],
-              [     0.,                   INV_DY2,      0.]]))
 
-time = 0.
-temperature = np.zeros((GRID_NY, GRID_NX))
-temperature[5, 5] = 1.
-delta_temperature = np.empty_like(temperature)
+if __name__ == '__main__':
+    heat_solver = HeatSolver(shape=(GRID_NY, GRID_NX),
+                             spacing=(GRID_DY, GRID_DX), alpha=ALPHA)
 
-print('Using dt = {dt}'.format(dt=TIME_STEP))
+    for step in xrange(N_STEPS):
+        if step % 1 == 0:
+            print('Step = {step}'.format(step=step))
+            np.savetxt(sys.stdout, heat_solver.temperature, fmt='%6.4F')
 
-for step in xrange(N_STEPS):
-    if step % 1 == 0:
-        print('Step = {step}'.format(step=step))
-        np.savetxt(sys.stdout, temperature, fmt='%6.4F')
+        heat_solver.advance_in_time()
 
-    ndimage.convolve(temperature, STENCIL, output=delta_temperature)
-    delta_temperature[(0, -1), :] = 0.
-    delta_temperature[:, (0, -1)] = 0.
-
-    temperature += delta_temperature
-
-    time += TIME_STEP
-
-print('Step = {step}'.format(step=step))
-np.savetxt(sys.stdout, temperature, fmt='%6.4F')
+    print('Step = {step}'.format(step=step))
+    np.savetxt(sys.stdout, heat_solver.temperature, fmt='%6.4F')
