@@ -15,7 +15,7 @@ class HeatSolver(object):
             Number of rows and columns for the solution grid.
         spacing : tuple of float, optional
             Spacing between grid rows and columns.
-        alpha : float
+        alpha : float, optional
             Thermal conductivity.
         """
         self._shape = tuple(shape)
