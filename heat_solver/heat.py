@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 import numpy as np
 
-from solve_2d import solve_2d
+from .solve_2d import solve_2d
 
 
 class HeatSolver(object):
