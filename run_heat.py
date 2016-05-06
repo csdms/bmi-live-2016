@@ -29,6 +29,9 @@ GRID_DY, GRID_DX = 1., 1.
 ALPHA = 1.
 N_STEPS = 5
 
+np.set_printoptions(linewidth=120,
+                    formatter={'float_kind': lambda x : '%6.4F' % x})
+
 
 if __name__ == '__main__':
     heat_solver = HeatSolver(shape=(GRID_NY, GRID_NX),
@@ -37,12 +40,18 @@ if __name__ == '__main__':
     heat_solver.temperature = 0.
     heat_solver.temperature[GRID_NY / 2, GRID_NX / 2] = 1.
 
+    fp = open('temperature.txt', 'wb')
+
     for step in range(N_STEPS):
         if step % 1 == 0:
             print('Step = {step}'.format(step=step))
-            np.savetxt(sys.stdout, heat_solver.temperature, fmt='%6.4F')
+            np.savetxt(fp, heat_solver.temperature, fmt='%6.4F')
+            print(heat_solver.temperature)
 
         heat_solver.solve()
 
     print('Step = {step}'.format(step=step))
-    np.savetxt(sys.stdout, heat_solver.temperature, fmt='%6.4F')
+    np.savetxt(fp, heat_solver.temperature, fmt='%6.4F')
+    print(heat_solver.temperature)
+
+    fp.close()
