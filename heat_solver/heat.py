@@ -1,4 +1,6 @@
 #! /usr/bin/env python
+import warnings
+
 import numpy as np
 
 from .solve_2d import solve_2d
@@ -32,6 +34,12 @@ class HeatSolver(object):
     def time_step(self):
         """The time step."""
         return self._time_step
+
+    @time_step.setter
+    def time_step(self, new_dt):
+        if new_dt >= min(self.spacing) ** 2 / (4. * self.alpha):
+            warnings.warn('using an unstable time step')
+        self._time_step = new_dt
 
     @property
     def shape(self):

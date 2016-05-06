@@ -22,36 +22,32 @@ import sys
 
 import numpy as np
 
-from heat_solver import HeatSolver
-
-GRID_NY, GRID_NX = 11, 11
-GRID_DY, GRID_DX = 1., 1.
-ALPHA = 1.
-N_STEPS = 5
+from heat_solver import BmiHeat
 
 np.set_printoptions(linewidth=120,
                     formatter={'float_kind': lambda x : '%6.4F' % x})
 
 
 if __name__ == '__main__':
-    heat_solver = HeatSolver(shape=(GRID_NY, GRID_NX),
-                             spacing=(GRID_DY, GRID_DX), alpha=ALPHA)
+    heat = BmiHeat()
+    heat.initialize('heat.yaml')
 
-    heat_solver.temperature = 0.
-    heat_solver.temperature[GRID_NY / 2, GRID_NX / 2] = 1.
+    grid_id = heat.get_var_grid('plate_surface__temperature')
+    grid_shape = heat.get_grid_shape(grid_id)
+
+    temperature = np.zeros(grid_shape)
+    temperature[grid_shape[0] / 2, grid_shape[1] / 2] = 1.
 
     fp = open('temperature.txt', 'wb')
 
-    for step in range(N_STEPS):
-        if step % 1 == 0:
-            print('Step = {step}'.format(step=step))
-            np.savetxt(fp, heat_solver.temperature, fmt='%6.4F')
-            print(heat_solver.temperature)
+    heat.set_value('plate_surface__temperature', temperature)
 
-        heat_solver.solve()
+    for time in np.linspace(0., 100., 5):
+        print('Time = {time}'.format(time=time))
+        np.savetxt(fp, heat.get_value('plate_surface__temperature'),
+                   fmt='%6.4F')
+        print(heat.get_value('plate_surface__temperature'))
 
-    print('Step = {step}'.format(step=step))
-    np.savetxt(fp, heat_solver.temperature, fmt='%6.4F')
-    print(heat_solver.temperature)
+        heat.update_until(time)
 
     fp.close()
