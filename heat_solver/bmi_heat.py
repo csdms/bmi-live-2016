@@ -2,7 +2,9 @@
 """Basic Model Interface implementation for the 2D heat model."""
 
 import types
+
 import numpy as np
+import yaml
 
 from .heat import HeatSolver
 
@@ -32,13 +34,12 @@ class BmiHeat(object):
         filename : str, optional
             Path to name of input file.
         """
-        if filename is None:
-            self._heat_solver = HeatSolver()
-        elif isinstance(filename, types.StringTypes):
-            with open(filename, 'r') as file_obj:
-                self._heat_solver = HeatSolver.from_file_like(file_obj.read())
-        else:
-            self._heat_solver = HeatSolver.from_file_like(filename)
+        with open(filename, 'r') as file_obj:
+            params = yaml.load(file_obj)
+
+        self._heat_solver = HeatSolver(
+            shape=params['shape'], spacing=params['spacing'],
+            alpha=params['alpha'])
 
         self._values = {
             'plate_surface__temperature': self._heat_solver.temperature,
