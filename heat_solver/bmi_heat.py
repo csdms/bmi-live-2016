@@ -5,11 +5,12 @@ import types
 
 import numpy as np
 import yaml
+from basic_modeling_interface import Bmi
 
 from .heat import HeatSolver
 
 
-class BmiHeat(object):
+class BmiHeat(Bmi):
 
     """Solve the heat equation for a 2D plate."""
 
