@@ -15,4 +15,5 @@ export PATH="$HOME/miniconda/bin:$PATH"
 hash -r
 conda config --set always_yes yes --set changeps1 no
 conda info -a
-conda install --file=requirements.txt
+cat requirements.txt | grep -v basic-modeling-interface | xargs conda install
+pip install basic-modeling-interface
