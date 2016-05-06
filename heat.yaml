@@ -1,0 +1,3 @@
+shape: [11, 11]
+spacing: [1., 1.]
+alpha: .1
