@@ -37,7 +37,7 @@ if __name__ == '__main__':
     heat_solver.temperature = 0.
     heat_solver.temperature[GRID_NY / 2, GRID_NX / 2] = 1.
 
-    for step in xrange(N_STEPS):
+    for step in range(N_STEPS):
         if step % 1 == 0:
             print('Step = {step}'.format(step=step))
             np.savetxt(sys.stdout, heat_solver.temperature, fmt='%6.4F')
