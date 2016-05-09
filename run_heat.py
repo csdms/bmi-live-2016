@@ -36,10 +36,15 @@ heat_solver = HeatSolver(shape=GRID_SHAPE, spacing=GRID_SPACING,
                          alpha=ALPHA)
 heat_solver.temperature[GRID_SHAPE[0] / 2, GRID_SHAPE[1] / 2] = 1.
 
+print('shape: [{ny}, {nx}]'.format(ny=GRID_SHAPE[0], nx=GRID_SHAPE[1]))
+print('spacing: [{dy}, {dx}]'.format(dy=GRID_SPACING[0], dx=GRID_SPACING[1]))
+print('alpha: {alpha}'.format(alpha=ALPHA))
+
 n_steps = int(STOP_TIME / heat_solver.time_step)
 for step in range(n_steps + 1):
     if step % (n_steps // 5) == 0:
-        print('Time = {time}'.format(time=step * heat_solver.time_step))
-        print(heat_solver.temperature)
+        print('time: {time}'.format(time=step * heat_solver.time_step))
+        print('temperature:\n{t}'.format(t=heat_solver.temperature))
+
 
     heat_solver.solve()
