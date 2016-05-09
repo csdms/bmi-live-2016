@@ -83,7 +83,7 @@ class BmiHeat(Bmi):
         """
         n_steps = (then - self.get_current_time()) / self.get_time_step()
 
-        for _ in xrange(int(n_steps)):
+        for _ in range(int(n_steps)):
             self.update()
         self.update_frac(n_steps - int(n_steps))
 

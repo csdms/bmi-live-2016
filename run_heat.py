@@ -24,6 +24,9 @@ import numpy as np
 
 from heat_solver import BmiHeat
 
+np.set_printoptions(linewidth=120,
+                    formatter={'float_kind': lambda x : '%6.4F' % x})
+
 
 if __name__ == '__main__':
     heat = BmiHeat()
@@ -35,11 +38,16 @@ if __name__ == '__main__':
     temperature = np.zeros(grid_shape)
     temperature[grid_shape[0] / 2, grid_shape[1] / 2] = 1.
 
+    fp = open('temperature.txt', 'wb')
+
     heat.set_value('plate_surface__temperature', temperature)
 
     for time in np.linspace(0., 100., 5):
         print('Time = {time}'.format(time=time))
-        np.savetxt(sys.stdout, heat.get_value('plate_surface__temperature'),
+        np.savetxt(fp, heat.get_value('plate_surface__temperature'),
                    fmt='%6.4F')
+        print(heat.get_value('plate_surface__temperature'))
 
         heat.update_until(time)
+
+    fp.close()
