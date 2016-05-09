@@ -44,11 +44,15 @@ delta_temperature = np.empty_like(temperature)
 temperature = np.zeros(GRID_SHAPE)
 temperature[GRID_SHAPE[0] / 2, GRID_SHAPE[1] / 2] = 1.
 
+print('shape: [{ny}, {nx}]'.format(ny=GRID_SHAPE[0], nx=GRID_SHAPE[1]))
+print('spacing: [{dy}, {dx}]'.format(dy=GRID_SPACING[0], dx=GRID_SPACING[1]))
+print('alpha: {alpha}'.format(alpha=ALPHA))
+
 n_steps = int(STOP_TIME / time_step)
 for step in range(n_steps + 1):
     if step % (n_steps // 5) == 0:
-        print('Time = {time}'.format(time=step * time_step))
-        print(temperature)
+        print('time: {time}'.format(time=step * time_step))
+        print('temperature:\n{t}'.format(t=temperature))
 
     ndimage.convolve(temperature, stencil, output=delta_temperature)
     delta_temperature[(0, -1), :] = 0.
