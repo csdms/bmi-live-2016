@@ -3,8 +3,8 @@ import numpy as np
 from scipy import ndimage
 
 
-def solve_2d(temperature, spacing=(1., 1.), alpha=1., time_step=None,
-             out=None):
+def diffuse_2d(temperature, spacing=(1., 1.), alpha=1., time_step=None,
+               out=None):
     """Solve for the change in temperature.
 
     Parameters

@@ -3,7 +3,7 @@ import warnings
 
 import numpy as np
 
-from .solve_2d import solve_2d
+from .diffuse_2d import diffuse_2d
 
 
 class HeatSolver(object):
@@ -67,7 +67,7 @@ class HeatSolver(object):
 
     def solve(self):
         """Solve for the new temperatures."""
-        solve_2d(self.temperature, spacing=self.spacing,
-                 alpha=self.alpha, time_step=self.time_step,
-                 out=self._delta_temperature)
+        diffuse_2d(self.temperature, spacing=self.spacing,
+                   alpha=self.alpha, time_step=self.time_step,
+                   out=self._delta_temperature)
         self._temperature += self._delta_temperature
