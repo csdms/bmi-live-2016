@@ -5,7 +5,10 @@ from scipy import ndimage
 
 def diffuse_2d(temperature, spacing=(1., 1.), alpha=1., time_step=None,
                out=None):
-    """Solve for the change in temperature.
+    """Solve the 2D diffusion equation for the change in temperature.
+
+    Here, "temperature" is shorthand for any nonreactive, diffusible,
+    scalar constituent.
 
     Parameters
     ----------
