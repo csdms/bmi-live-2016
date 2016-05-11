@@ -38,11 +38,9 @@ stencil = ALPHA * time_step * (
               [inv_dX2, -2. * (inv_dX2 + inv_dY2), inv_dX2],
               [     0.,                   inv_dY2,      0.]]))
 
-temperature = random.random(GRID_SHAPE)
-delta_temperature = np.empty_like(temperature)
-
 temperature = np.zeros(GRID_SHAPE)
 temperature[GRID_SHAPE[0] / 2, GRID_SHAPE[1] / 2] = 1.
+delta_temperature = np.empty_like(temperature)
 
 print('shape: [{ny}, {nx}]'.format(ny=GRID_SHAPE[0], nx=GRID_SHAPE[1]))
 print('spacing: [{dy}, {dx}]'.format(dy=GRID_SPACING[0], dx=GRID_SPACING[1]))
