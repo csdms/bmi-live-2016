@@ -20,7 +20,7 @@ from __future__ import print_function
 from scipy import ndimage, random
 import numpy as np
 
-from heat import HeatSolver
+from heat_solver import HeatSolver
 
 
 np.set_printoptions(linewidth=120,
@@ -32,8 +32,7 @@ GRID_SPACING = (1., 1.)
 ALPHA = .1
 STOP_TIME = 100.
 
-heat_solver = HeatSolver(shape=GRID_SHAPE, spacing=GRID_SPACING,
-                         alpha=ALPHA)
+heat_solver = HeatSolver(shape=GRID_SHAPE, spacing=GRID_SPACING, alpha=ALPHA)
 heat_solver.temperature[GRID_SHAPE[0] / 2, GRID_SHAPE[1] / 2] = 1.
 
 print('shape: [{ny}, {nx}]'.format(ny=GRID_SHAPE[0], nx=GRID_SHAPE[1]))
