@@ -17,7 +17,6 @@ This becomes the following finite-difference problem,
 """
 from __future__ import print_function
 
-from scipy import ndimage
 import numpy as np
 
 from heat import HeatSolver
