@@ -1,29 +1,21 @@
 # BMI: Live!
 
-Code for the **BMI: Live!** clinic
-held at the
-[2016 CSDMS Annual Meeting](http://csdms.colorado.edu/wiki/Form:CSDMS_annual_meeting),
-May 17-19, in Boulder, Colorado.
+In this step,
+we've refactored the **run_heat.py** script,
+making two significant changes:
 
-## The Goal
+1. The heat diffusion model has been extracted from the script and
+   placed into its own class, `HeatSolver`, in its own module,
+   **heat.py**.
+1. Likewise, the solver for the diffusion equation has been moved
+   from the script into its own module, **solve_2d.py**.
 
-Given a model, wrap it in a BMI in realtime.
-We also hope show some best practices in Python development.
+We keep the **run_heat.py** script,
+but it now uses an instance of the `HeatSolver` class.
 
-## The Plan
+Run the script with
 
-1. Start with a script defining the heat equation model
-1. Convert the script to a module (first a function, then a class)
-1. Make the module into a package
-1. View the list of BMI methods, and their signatures,
-   at http://bmi-forum.readthedocs.io/en/latest/
-1. Together, implement the BMI methods for our model!
-1. Test the results in a Jupyter Notebook (and make a plot,
-   maybe using widgets!)
+    $ python run_heat.py
 
-## The Requirements
-
-* Laptop
-* Text editor
-* Python distribution (we recommend the Anaconda Python 2.7 distribution)
-* Optionally, a GitHub account, and `git` or GitHub Desktop
+Does the refactored code produce the same result
+as the initial example?
