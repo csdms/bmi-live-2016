@@ -1,0 +1,8 @@
+name: HeatSolver
+language: python
+
+package: heat_solver
+class: BmiHeat
+
+build:
+  - python setup.py install

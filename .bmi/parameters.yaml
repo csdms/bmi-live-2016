@@ -1,0 +1,45 @@
+number_of_rows:
+  description: Number of grid rows
+  value:
+    type: int
+    default: 10
+    range:
+      min: 0
+      max: 1000000
+    units: -
+number_of_columns:
+  description: Number of grid columns
+  value:
+    type: int
+    default: 10
+    range:
+      min: 0
+      max: 1000000
+    units: -
+grid_spacing_x:
+  description: Spacing between grid nodes in x-direction
+  value:
+    type: float
+    default: 1.0
+    range:
+      min: 0
+      max: 1000000
+    units: m
+grid_spacing_y:
+  description: Spacing between grid nodes in y-direction
+  value:
+    type: float
+    default: 1.0
+    range:
+      min: 0
+      max: 1000000
+    units: m
+alpha:
+  description: Thermal conductivity
+  value:
+    type: float
+    default: 1.0
+    range:
+      min: 0.0
+      max: 10.0
+    units: m2 s-1
