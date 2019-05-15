@@ -1,3 +1,6 @@
+This repository has been archived. Please see the [bmi-live](https://github.com/csdms/bmi-live) repository for the latest BMI Live! clinic material.
+
+```
 # BMI: Live!
 
 Code for the **BMI: Live!** clinic
@@ -27,3 +30,4 @@ We also hope show some best practices in Python development.
 * Text editor
 * Python distribution (we recommend the Anaconda Python 2.7 distribution)
 * Optionally, a GitHub account, and `git` or GitHub Desktop
+```
